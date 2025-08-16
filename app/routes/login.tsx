@@ -1,63 +1,62 @@
 import {Form, useActionData} from '@remix-run/react';
-import {Lock, Mail} from 'lucide-react';
 
 export default function Index() {
   const actionData = useActionData<{error?: string; success?: string}>();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md">
-        <h1 className="text-2xl font-bold text-center mb-6">Login</h1>
-        <Form method="post" className="space-y-6">
+    <div className="flex items-center justify-center pt-12">
+      <div className="bg-white p-6 rounded-lg shadow-md border border-gray-200 w-full max-w-sm">
+        <h1 className="text-2xl font-semibold text-gray-800 text-center mb-6">
+          Faça seu login
+        </h1>
+        <Form method="post" className="space-y-4">
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-600"
             >
               Email
             </label>
-            <div className="mt-1 relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <Mail className="h-5 w-5 text-gray-400" />
-              </span>
+            <div className="mt-1">
               <input
                 id="email"
                 name="email"
                 type="email"
-                className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                placeholder="you@example.com"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-100"
+                placeholder="seu@email.com"
               />
             </div>
           </div>
           <div>
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-600"
             >
               Senha
             </label>
-            <div className="mt-1 relative">
-              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                <Lock className="h-5 w-5 text-gray-400" />
-              </span>
+            <div className="mt-1">
               <input
                 id="password"
                 name="password"
                 type="password"
-                className="pl-10 block w-full rounded-md border-gray-300 shadow-sm focus:border-green-500 focus:ring-green-500 sm:text-sm"
-                placeholder="Your password"
+                className="w-full rounded-md border border-gray-300 bg-white py-2 px-3 text-sm text-gray-900 placeholder-gray-400 focus:border-green-500 focus:ring-1 focus:ring-green-100"
+                placeholder="Sua senha"
               />
             </div>
           </div>
           {actionData?.error && (
-            <p className="text-red-500 text-sm">{actionData.error}</p>
+            <p className="text-red-500 text-sm text-center">
+              {actionData.error}
+            </p>
           )}
           {actionData?.success && (
-            <p className="text-green-500 text-sm">{actionData.success}</p>
+            <p className="text-green-500 text-sm text-center">
+              {actionData.success}
+            </p>
           )}
           <button
             type="submit"
-            className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-500 hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
+            className="w-full py-2.5 px-4 rounded-md bg-green-500 text-white text-sm font-medium hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-200 transition duration-200"
           >
             Entrar
           </button>

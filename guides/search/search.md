@@ -68,6 +68,9 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
       product {
         handle
         title
+        giftProduct: metafield(key: "giftcard", namespace: "custom") {
+          value
+        }
       }
     }
     giftProduct: metafield(key: "giftcard", namespace: "custom") {

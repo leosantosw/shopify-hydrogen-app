@@ -2,6 +2,10 @@ import {type MetaFunction, useLoaderData} from '@remix-run/react';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {
+  CartLineInput,
+  CartLineUpdateInput,
+} from '@shopify/hydrogen/storefront-api-types';
+import {
   data,
   type LoaderFunctionArgs,
   type ActionFunctionArgs,
@@ -20,7 +24,22 @@ export async function action({request, context}: ActionFunctionArgs) {
 
   const formData = await request.formData();
 
-  const {action, inputs} = CartForm.getFormInput(formData);
+  const {action, inputs} = CartForm.getFormInput(formData) as any;
+
+  const currentCart = await cart.get();
+  const currentItem = currentCart?.lines.nodes.find(
+    (i) => i.id === inputs?.lines?.[0]?.id,
+  );
+
+  const giftProduct = currentItem?.merchandise.product?.giftProduct?.value;
+
+  if (giftProduct && inputs.lines?.length > 0) {
+    const updateQuantity =
+      Number(inputs['decrease-quantity']) - 1 ||
+      Number(inputs['increase-quantity']) + 1;
+
+    inputs.lines[0].quantity = updateQuantity;
+  }
 
   if (!action) {
     throw new Error('No action provided');

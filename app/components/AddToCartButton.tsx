@@ -26,7 +26,7 @@ export function AddToCartButton({
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
-            className="flex h-11 items-center justify-center gap-2 rounded-full bg-[#addc39] px-6 font-semibold text-white shadow-sm transition hover:bg-lime-600 disabled:cursor-not-allowed disabled:opacity-60"
+            className="cursor-pointer flex h-11 items-center justify-center gap-2 rounded-full bg-[#addc39] px-6 font-semibold text-white shadow-sm transition hover:bg-lime-600 disabled:cursor-not-allowed disabled:opacity-60"
           >
             <ShoppingCart size={20} />
             <span>Adicionar ao carrinho</span>

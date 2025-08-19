@@ -27,18 +27,28 @@ export async function action({request, context}: ActionFunctionArgs) {
   const {action, inputs} = CartForm.getFormInput(formData) as any;
 
   const currentCart = await cart.get();
+
   const currentItem = currentCart?.lines.nodes.find(
-    (i) => i.id === inputs?.lines?.[0]?.id,
+    (line) => line.id === inputs?.lines?.[0]?.id,
   );
 
   const giftProduct = currentItem?.merchandise.product?.giftProduct?.value;
 
   if (giftProduct && inputs.lines?.length > 0) {
-    const updateQuantity =
-      Number(inputs['decrease-quantity']) - 1 ||
-      Number(inputs['increase-quantity']) + 1;
+    const decrease = Number(inputs?.['decrease-quantity']) || 0;
+    const increase = Number(inputs?.['increase-quantity']) || 0;
 
-    inputs.lines[0].quantity = updateQuantity;
+    let updatedQuantity = inputs?.['decrease-quantity']
+      ? decrease - 1
+      : inputs?.['increase-quantity']
+        ? increase + 1
+        : inputs.lines[0].quantity;
+
+    if (inputs?.['decrease-quantity'] && decrease - 1 === 0) {
+      updatedQuantity = 0;
+    }
+
+    inputs.lines[0].quantity = updatedQuantity;
   }
 
   if (!action) {

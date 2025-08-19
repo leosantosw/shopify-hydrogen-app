@@ -40,42 +40,55 @@ export default function SearchPage() {
   if (type === 'predictive') return null;
 
   return (
-    <div className="search">
-      <h1>Search</h1>
-      <SearchForm>
-        {({inputRef}) => (
-          <>
-            <input
-              defaultValue={term}
-              name="q"
-              placeholder="Search…"
-              ref={inputRef}
-              type="search"
-            />
-            &nbsp;
-            <button type="submit">Search</button>
-          </>
-        )}
-      </SearchForm>
-      {error && <p style={{color: 'red'}}>{error}</p>}
-      {!term || !result?.total ? (
-        <SearchResults.Empty />
-      ) : (
-        <SearchResults result={result} term={term}>
-          {({articles, pages, products, term}) => (
-            <div>
-              <SearchResults.Products products={products} term={term} />
-              <SearchResults.Pages pages={pages} term={term} />
-              <SearchResults.Articles articles={articles} term={term} />
+    <div className="min-h-screen bg-gray-100">
+      {/* Main Content */}
+      <div className="container mx-auto px-4 py-8">
+        <h1 className="text-3xl font-bold mb-6 text-gray-800">Search</h1>
+        <SearchForm>
+          {({inputRef}) => (
+            <div className="flex gap-2 mb-6">
+              <input
+                defaultValue={term}
+                name="q"
+                placeholder="Search…"
+                ref={inputRef}
+                type="search"
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 shadow-sm"
+              />
+              <button
+                type="submit"
+                className="px-6 py-3 bg-green-600 text-white rounded-lg hover:bg-green-700 transition duration-300"
+              >
+                Search
+              </button>
             </div>
           )}
-        </SearchResults>
-      )}
-      <Analytics.SearchView data={{searchTerm: term, searchResults: result}} />
+        </SearchForm>
+        {error && (
+          <p className="text-red-600 mb-4" role="alert">
+            {error}
+          </p>
+        )}
+        {!term || !result?.total ? (
+          <SearchResults.Empty />
+        ) : (
+          <SearchResults result={result} term={term}>
+            {({articles, pages, products, term}) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <SearchResults.Products products={products} term={term} />
+                <SearchResults.Pages pages={pages} term={term} />
+                <SearchResults.Articles articles={articles} term={term} />
+              </div>
+            )}
+          </SearchResults>
+        )}
+        <Analytics.SearchView
+          data={{searchTerm: term, searchResults: result}}
+        />
+      </div>
     </div>
   );
 }
-
 /**
  * Regular search query and fragments
  * (adjust as needed)

@@ -33,9 +33,9 @@ export default function AccountLayout() {
 
   const heading = customer
     ? customer.firstName
-      ? `Welcome, ${customer.firstName}`
+      ? `Bem vindo, ${customer.firstName}`
       : `Welcome to your account.`
-    : 'Account Details';
+    : 'Detalhes da conta';
 
   return (
     <div className="account">

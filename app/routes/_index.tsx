@@ -30,8 +30,6 @@ function loadDeferredData({context}: LoaderFunctionArgs) {
 export default function Homepage() {
   const data = useLoaderData<typeof loader>();
 
-  console.log('Recommended products: ', data.recommendedProducts);
-
   return (
     <div className="home">
       <RecommendedProducts products={data.recommendedProducts} />

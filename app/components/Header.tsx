@@ -7,7 +7,7 @@ import {
 } from '@shopify/hydrogen';
 import type {HeaderQuery, CartApiQueryFragment} from 'storefrontapi.generated';
 import {useAside} from '~/components/Aside';
-import {Menu, Search, ShoppingCart, User, Store} from 'lucide-react';
+import {Menu, Search, ShoppingCart, User} from 'lucide-react';
 
 interface HeaderProps {
   header: HeaderQuery;
@@ -26,12 +26,12 @@ export function Header({
 }: HeaderProps) {
   const {shop, menu} = header;
   return (
-    <header className="bg-green-600 text-white sticky top-0">
-      <div className="container mx-auto px-4 py-2 flex items-center justify-between">
+    <header className="sticky top-0 z-50 bg-white border-b border-gray-200 shadow-sm">
+      <div className="container mx-auto px-6 h-20 flex items-center justify-between">
         <NavLink
           prefetch="intent"
           to="/"
-          className="text-xl font-bold text-yellow-300 hover:text-yellow-200 transition-colors"
+          className="text-xl font-semibold text-gray-800"
           end
         >
           {shop.name}
@@ -64,7 +64,7 @@ export function HeaderMenu({
 
   return (
     <nav
-      className={`${className} hidden md:flex items-center space-x-6`}
+      className={`${className} hidden md:flex items-center gap-8`}
       role="navigation"
     >
       {menu?.items.map((item) => {
@@ -78,7 +78,7 @@ export function HeaderMenu({
             : item.url;
         return (
           <NavLink
-            className="text-white hover:text-yellow-300 font-medium transition-colors"
+            className="text-sm font-medium text-gray-600 hover:text-lime-600 transition-colors"
             end
             key={item.id}
             onClick={close}
@@ -98,13 +98,13 @@ function HeaderCtas({
   cart,
 }: Pick<HeaderProps, 'isLoggedIn' | 'cart'>) {
   return (
-    <nav className="flex items-center space-x-4" role="navigation">
+    <nav className="flex items-center gap-2 sm:gap-4" role="navigation">
       <HeaderMenuMobileToggle />
       <SearchToggle />
       <NavLink
         prefetch="intent"
         to="/login"
-        className="flex items-center text-white hover:text-yellow-300 transition-colors"
+        className="hidden sm:flex items-center text-gray-600 hover:text-lime-600 transition-colors"
       >
         <Suspense fallback={<User className="w-5 h-5" />}>
           <Await
@@ -112,9 +112,9 @@ function HeaderCtas({
             errorElement={<User className="w-5 h-5" />}
           >
             {(isLoggedIn) => (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-2">
                 <User className="w-5 h-5" />
-                <span className="hidden sm:inline">
+                <span className="text-sm font-medium">
                   {isLoggedIn ? 'Conta' : 'Entrar'}
                 </span>
               </div>
@@ -131,7 +131,7 @@ function HeaderMenuMobileToggle() {
   const {open} = useAside();
   return (
     <button
-      className="md:hidden p-2 text-white hover:text-yellow-300 transition-colors"
+      className="md:hidden p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-lime-600 transition-colors"
       onClick={() => open('mobile')}
     >
       <Menu className="w-5 h-5" />
@@ -143,7 +143,7 @@ function SearchToggle() {
   const {open} = useAside();
   return (
     <button
-      className="p-2 text-white hover:text-yellow-300 transition-colors"
+      className="p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-lime-600 transition-colors"
       onClick={() => open('search')}
     >
       <Search className="w-5 h-5" />
@@ -158,7 +158,7 @@ function CartBadge({count}: {count: number | null}) {
   return (
     <a
       href="/cart"
-      className="relative flex items-center text-white hover:text-yellow-300 transition-colors"
+      className="relative p-2 rounded-md text-gray-600 hover:bg-gray-100 hover:text-lime-600 transition-colors"
       onClick={(e) => {
         e.preventDefault();
         open('cart');
@@ -172,11 +172,10 @@ function CartBadge({count}: {count: number | null}) {
     >
       <ShoppingCart className="w-5 h-5" />
       {count !== null && count > 0 && (
-        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center">
+        <span className="absolute -top-1 -right-1 bg-lime-500 text-white text-[10px] font-bold rounded-full h-4 w-4 flex items-center justify-center">
           {count}
         </span>
       )}
-      <span className="hidden sm:inline ml-1">Carrinho</span>
     </a>
   );
 }

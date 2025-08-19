@@ -2,10 +2,6 @@ import {type MetaFunction, useLoaderData} from '@remix-run/react';
 import type {CartQueryDataReturn} from '@shopify/hydrogen';
 import {CartForm} from '@shopify/hydrogen';
 import {
-  CartLineInput,
-  CartLineUpdateInput,
-} from '@shopify/hydrogen/storefront-api-types';
-import {
   data,
   type LoaderFunctionArgs,
   type ActionFunctionArgs,

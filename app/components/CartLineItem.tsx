@@ -80,6 +80,16 @@ function CartLineQuantity({line}: {line: CartLine}) {
   const prevQuantity = Math.max(0, quantity - 1);
   const nextQuantity = quantity + 1;
 
+  const isFree = line.cost.totalAmount.amount === '0.0';
+
+  if (isFree) {
+    return (
+      <div className="text-center font-medium" style={{minWidth: '2rem'}}>
+        {quantity} un
+      </div>
+    );
+  }
+
   return (
     <div className="flex items-center gap-2">
       <CartLineUpdateButton lines={[{id: lineId, quantity: prevQuantity}]}>
@@ -94,7 +104,7 @@ function CartLineQuantity({line}: {line: CartLine}) {
         </button>
       </CartLineUpdateButton>
       <div className="text-center font-medium" style={{minWidth: '2rem'}}>
-        {quantity}
+        {quantity} un
       </div>
       <CartLineUpdateButton lines={[{id: lineId, quantity: nextQuantity}]}>
         <button

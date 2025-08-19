@@ -1,15 +1,14 @@
 import {type FetcherWithComponents} from '@remix-run/react';
 import {CartForm, type OptimisticCartLineInput} from '@shopify/hydrogen';
+import {ShoppingCart} from 'lucide-react';
 
 export function AddToCartButton({
   analytics,
-  children,
   disabled,
   lines,
   onClick,
 }: {
   analytics?: unknown;
-  children: React.ReactNode;
   disabled?: boolean;
   lines: Array<OptimisticCartLineInput>;
   onClick?: () => void;
@@ -27,8 +26,10 @@ export function AddToCartButton({
             type="submit"
             onClick={onClick}
             disabled={disabled ?? fetcher.state !== 'idle'}
+            className="flex h-11 items-center justify-center gap-2 rounded-full bg-[#addc39] px-6 font-semibold text-white shadow-sm transition hover:bg-lime-600 disabled:cursor-not-allowed disabled:opacity-60"
           >
-            {children}
+            <ShoppingCart size={20} />
+            <span>Adicionar ao carrinho</span>
           </button>
         </>
       )}

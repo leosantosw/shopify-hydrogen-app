@@ -70,6 +70,9 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
         title
       }
     }
+    giftProduct: metafield(key: "giftcard", namespace: "custom") {
+      value
+    }
   }
 ` as const;
 
@@ -212,7 +215,7 @@ export async function loader({request, context}: LoaderFunctionArgs) {
   const isRegular = !url.searchParams.has('predictive');
 
   if (!isRegular) {
-    return {}
+    return {};
   }
 
   const searchPromise = regularSearch({request, context});

@@ -129,7 +129,13 @@ const SEARCH_PRODUCT_FRAGMENT = `#graphql
       product {
         handle
         title
+        giftProduct: metafield(key: "giftcard", namespace: "custom") {
+          value
+        }
       }
+    }
+    giftProduct: metafield(key: "giftcard", namespace: "custom") {
+      value
     }
   }
 ` as const;
@@ -330,6 +336,9 @@ const PREDICTIVE_SEARCH_PRODUCT_FRAGMENT = `#graphql
         amount
         currencyCode
       }
+    }
+    giftProduct: metafield(key: "giftcard", namespace: "custom") {
+      value
     }
   }
 ` as const;

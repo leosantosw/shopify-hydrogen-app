@@ -89,11 +89,7 @@ const RECOMMENDED_PRODUCTS_QUERY = `#graphql
       width
       height
     }
-    giftProduct: metafields(identifiers:  {
-       key: "giftcard",
-       namespace: "custom"
-    }) {
-      id
+    giftProduct: metafield(key: "giftcard", namespace: "custom") {
       value
     }
   }

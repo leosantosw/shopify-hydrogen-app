@@ -15,6 +15,23 @@ export function ProductForm({
   productOptions: MappedProductOptions[];
   selectedVariant: ProductFragment['selectedOrFirstAvailableVariant'];
 }) {
+  const lines = selectedVariant?.id
+    ? [
+        {
+          merchandiseId: selectedVariant?.id,
+          quantity: 1,
+        },
+      ]
+    : [];
+
+  const giftProduct = selectedVariant?.product.giftProduct?.value;
+  if (giftProduct) {
+    lines.push({
+      merchandiseId: giftProduct,
+      quantity: 1,
+    });
+  }
+
   const navigate = useNavigate();
   const {open} = useAside();
   return (
@@ -106,20 +123,8 @@ export function ProductForm({
         onClick={() => {
           open('cart');
         }}
-        lines={
-          selectedVariant
-            ? [
-                {
-                  merchandiseId: selectedVariant.id,
-                  quantity: 1,
-                  selectedVariant,
-                },
-              ]
-            : []
-        }
-      >
-        {selectedVariant?.availableForSale ? 'Add to cart' : 'Sold out'}
-      </AddToCartButton>
+        lines={lines}
+      />
     </div>
   );
 }

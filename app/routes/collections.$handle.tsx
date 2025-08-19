@@ -123,6 +123,9 @@ const PRODUCT_ITEM_FRAGMENT = `#graphql
         ...MoneyProductItem
       }
     }
+    giftProduct: metafield(key: "giftcard", namespace: "custom") {
+      value
+    }
   }
 ` as const;
 
